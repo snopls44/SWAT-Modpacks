@@ -2,8 +2,10 @@
 
 Community catalog of curated mod collections for SWAT Game, consumed by SWAT Launcher.
 
-- [SWAT Launcher modpack catalog tutorial](TUTORIAL.md)
+- [Modpack publishing tutorial](TUTORIAL.md)
+- [Manifest specification](MODPACK_MANIFEST.md)
 - [Catalog schema](CATALOG_SCHEMA.md)
-- [Modpack catalog-entry template](templates/catalog-entry.json)
+- [Modpack manifest template](templates/modpack.json)
+- [Catalog entry template](templates/catalog-entry.json)
 
-The launcher reads `catalog.json` from the default branch. Catalog discovery is available; end-to-end modpack installation is still under development. See the tutorial for current limitations.
+The catalog entry and `modpack.json` must share the same ID and version. Modpack installation in the launcher is still under development.
