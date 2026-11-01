@@ -1,0 +1,17 @@
+{
+  "id": "com.author.examplepack",
+  "title": "Example Modpack",
+  "author": "Author Name",
+  "description": "Describe this collection and its intended setup.",
+  "version": "1.0.0",
+  "tags": [
+    "example",
+    "collection"
+  ],
+  "gameBuildGuids": [],
+  "downloadUrl": "https://example.com/example-modpack.zip",
+  "repositoryUrl": "https://github.com/author/example-modpack",
+  "updatedAt": "2026-11-01T00:00:00Z",
+  "stars": 0,
+  "archived": false
+}
