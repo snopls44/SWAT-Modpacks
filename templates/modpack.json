@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "com.author.examplepack",
+  "title": "Example Modpack",
+  "author": {
+    "name": "Author Name",
+    "accountId": null
+  },
+  "description": "Describe the collection and its intended setup.",
+  "version": "1.0.0",
+  "game": {
+    "id": "swat-game",
+    "buildGuids": []
+  },
+  "loader": {
+    "name": "BepInEx",
+    "version": "5.4.23.6"
+  },
+  "mods": [
+    {
+      "id": "com.author.examplemod",
+      "version": "1.0.0",
+      "required": true,
+      "enabledByDefault": true
+    }
+  ],
+  "tags": [
+    "example",
+    "collection"
+  ],
+  "notes": [
+    "Optional setup notes for the player."
+  ]
+}
