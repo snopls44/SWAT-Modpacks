@@ -1,62 +1,67 @@
 # SWAT Launcher: Modpack catalog tutorial
 
-This guide explains how to describe and publish a modpack in the SWAT community catalog. It does **not** explain how to create the individual mods inside the pack. A separate mod-development guide may be published in the future.
+This guide covers how to describe and publish a modpack in the SWAT community catalog. It does **not** teach how to program or create the mods inside the collection. A separate mod-development tutorial may be added in the future.
 
-## Important concepts
+## How the launcher is organized
 
-- A **Modded instance** is an independent working copy of an already installed Vanilla game. It is not a game installer.
-- A **modpack** is a curated collection of mods intended to be used together.
-- A modpack has its own stable ID. That ID identifies the collection, not any individual mod inside it.
-- Every individual mod keeps its own `mod.json` ID. Do not replace those IDs with the modpack ID.
+- **Vanilla installation:** the existing game installation.
+- **Modded instance:** an independent copy of an already installed Vanilla game. It is not a game installer.
+- **Modpack:** a curated collection of individual mods intended to be used together.
+- A modpack has its own stable ID. Each mod inside it keeps its own independent `mod.json` ID.
 
-## Current launcher support
+A modpack is intended to create/configure a Modded instance from mods. It must not download or install the SWAT Game itself.
 
-The SWAT-Modpacks catalog and its metadata template are prepared, but end-to-end modpack installation and instance creation from a modpack are not implemented yet. Publishing an entry makes it part of the catalog; it does not make the launcher able to install it. Do not advertise a pack as one-click installable until that workflow is released.
+## Current support status
 
-## 1. Prepare the collection
+The SWAT-Modpacks catalog and catalog-entry template are ready. End-to-end modpack package installation and instance creation from a modpack are not implemented yet. Publishing an entry makes it discoverable in the catalog; it does not make the launcher able to install the pack. Do not advertise one-click installation until that workflow exists.
 
-Before publishing, document:
-- The purpose and intended audience of the collection.
-- The mod IDs and versions included.
-- Compatible SWAT Game build GUIDs, when confirmed.
-- Required loaders and dependencies.
-- Any known conflicts or installation notes.
+## 1. Describe the collection
 
-The modpack should refer to individual mods by their stable IDs. Each included mod remains independently identifiable and updateable.
+Before publishing, prepare:
+- The collection's purpose and intended setup.
+- The individual mod IDs and versions included.
+- Confirmed compatible SWAT Game build GUIDs.
+- Required loaders and actual dependencies.
+- Known conflicts and installation notes.
+
+A modpack must reference individual mods by their stable IDs. Never replace member mod IDs with the modpack ID. Modded Queue is an optional community integration, not a universal dependency.
 
 ## 2. Fill in the catalog entry
 
 Start from [templates/catalog-entry.json](templates/catalog-entry.json).
 
-Use:
-- A unique, stable modpack `id`, for example `com.author.examplepack`.
-- A clear `title`, `author` and `description`.
-- A semantic `version` for the collection.
-- Searchable `tags`.
-- Confirmed compatible `gameBuildGuids`.
-- An HTTPS `downloadUrl` for the pack artifact.
-- An optional `repositoryUrl`.
-- An ISO 8601 `updatedAt` timestamp.
-- `archived: false` while the entry is actively maintained.
+Fields:
+- `id`: unique, stable modpack ID, e.g. `com.author.examplepack`.
+- `title`, `author`, `description`: display metadata.
+- `version`: version of the collection.
+- `tags`: searchable labels.
+- `gameBuildGuids`: confirmed compatible game build GUIDs.
+- `downloadUrl`: HTTPS URL for the pack archive.
+- `repositoryUrl`: optional source/project page.
+- `updatedAt`: ISO 8601 timestamp.
+- `stars`: catalog popularity value, if used.
+- `archived`: set to true when the entry should no longer be installed as a new pack.
 
-The current catalog entry format does not yet define an embedded machine-readable list of member mods. Do not invent a custom field and assume the launcher will process it.
+The current catalog schema does not yet define a machine-readable member-mod manifest or dependency resolver. Do not add custom fields and assume the launcher will process them.
 
 ## 3. Publish in SWAT-Modpacks
 
 1. Host the package at a stable HTTPS URL.
-2. Add the entry to `catalog.json`.
+2. Add its entry to the root `catalog.json`.
 3. Ensure no other entry uses the same modpack ID.
-4. Commit the change to the `main` branch.
-5. Keep the catalog entry current when the collection changes.
+4. Commit the change to the repository's `main` branch.
+5. Keep the catalog entry current as the collection changes.
 
 ## 4. Update a modpack
 
-Keep its modpack ID stable when releasing a new version. Update the version, package URL, compatibility information and timestamp. Changing the collection's contents does not turn it into a new modpack identity.
+Keep its modpack ID stable when publishing a new collection version. Update the version, package URL, compatibility information and timestamp. A changed member list does not automatically mean it is a new modpack identity.
 
-## Avoiding duplicate mods
+## Duplicate prevention
 
-A modpack ID is not a substitute for the IDs of the mods it contains. If a user already has one of the included mods, the future modpack installer must match that member by its individual mod ID and avoid installing a duplicate. It should also distinguish an already installed matching version from a version that can be updated.
+The modpack ID identifies only the collection. It must never be used as the ID for the individual mods it contains.
 
-## Future documentation
+The future modpack installer must compare each member's individual mod ID with the local library and selected instance. If a member mod is already present, it should not install a second copy. If the installed version differs, it should identify an update candidate for that same mod.
 
-A later tutorial can cover building the modpack archive, declaring its member mods in a supported manifest, resolving dependencies, and installing it as a Modded instance. Those features require a defined launcher format and implementation first.
+## Future tutorial
+
+A later guide can explain the supported modpack archive format, machine-readable member list, dependency resolution, and installation into a Modded instance. Those formats and workflows need to be implemented first; this page intentionally does not invent them.
